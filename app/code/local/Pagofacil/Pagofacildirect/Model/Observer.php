@@ -5,7 +5,7 @@
 class Pagofacil_Pagofacildirect_Model_Observer
 {    
     public function orderPlaceAfter($event)
-    {               
+    {    
         $order = $event->getOrder();
         
         if (!$order->getId())

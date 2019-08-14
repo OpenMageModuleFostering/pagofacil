@@ -33,7 +33,7 @@ class Pagofacil_Pagofacildirect_Model_Standard extends Mage_Payment_Model_Method
             ,"telefono" => $data->getTelefono()
             ,"celular" => $data->getCelular()
             ,"calleyNumero" => $data->getCalleyNumero()
-            ,"colonia" => $data->getColonia()
+            ,"colonia" =>( trim($data->getColonia()) == '' ? substr(trim($data->getCalleyNumero()), 0, 30) : $data->getColonia() )
             ,"municipio" => $data->getMunicipio()
             ,"estado" => $data->getEstado()
             ,"pais" => $data->getPais()
@@ -41,7 +41,7 @@ class Pagofacil_Pagofacildirect_Model_Standard extends Mage_Payment_Model_Method
         );        
         
         $infoInstance = $this->getInfoInstance();
-        $infoInstance->setAdditionalData(serialize($info));
+        $infoInstance->setAdditionalData($infoInstance->encrypt(serialize($info)));
         
         return $this;
     }
@@ -96,8 +96,9 @@ class Pagofacil_Pagofacildirect_Model_Standard extends Mage_Payment_Model_Method
         $orderNumber = $order->getIncrementId();        
         
         // obtener datos del pago en info y asignar monto total
-        $infoIntance = $this->getInfoInstance();
-        $info = unserialize($infoIntance->getAdditionalData());
+        $infoInstance = $this->getInfoInstance();
+        $info = unserialize($infoInstance->decrypt($infoInstance->getAdditionalData()));
+        
         $info['idPedido'] = $orderNumber;
         $info['prod'] = trim($this->getConfigData('prod'));
         $info['idSucursal'] = trim($this->getConfigData('sucursalkey'));
@@ -158,6 +159,5 @@ class Pagofacil_Pagofacildirect_Model_Standard extends Mage_Payment_Model_Method
     public function enabledMSI()
     {
         return ( (int)trim($this->getConfigData("msi")) == 1 ? true : false );
-    }
-    
+    }    
 }

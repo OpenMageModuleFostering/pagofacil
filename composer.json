@@ -1,13 +1,13 @@
 {
     "name": "OpenMageModuleFostering/pagofacil",
     "type": "magento-module",
-    "license": "GPL",
+    "license": "GNU-General-Public-License",
     "homepage": "",
     "description": "Online Payment Processor",
     "authors": [
     {
         "name": "isai velazquez",
-        "email": "soporte@pagofacil.net"
+        "email": "isai.velazquez@gmail.com"
     }
 ],
     "suggest": {

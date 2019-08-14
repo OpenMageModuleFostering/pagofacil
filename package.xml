@@ -1,25 +1,18 @@
 <?xml version="1.0"?>
 <package>
     <name>pagofacil</name>
-    <version>2.0.0</version>
+    <version>3.0.0</version>
     <stability>stable</stability>
-    <license uri="http://opensource.org/licenses/gpl-license.php">GPL</license>
+    <license>GNU General Public License</license>
     <channel>community</channel>
     <extends/>
     <summary>Online Payment Processor</summary>
-    <description>PagoF&#xE1;cil is a payment service company in Mexico currently offering web and mobile solutions.&#xD;
-Start accepting American Express, JCB, MasterCard and Visa either credit or debit with the best rates in the market.&#xD;
-The extension integrate completely in your website without leaving the domain or changing the look and feel of the store.&#xD;
-The service includes the option for Deferred payments into 3, 6, 9 or 12 months, for your customers.&#xD;
-If you don&#x2019;t have an account you can register for free: http://www.pagofacil.net/registros</description>
-    <notes>- send mail to the buyer by PagoFacil&#xD;
-- enable installments&#xD;
-- show logo PagoFacil&#xD;
-- exchange</notes>
-    <authors><author><name>isai velazquez</name><user>pagofacil</user><email>soporte@pagofacil.net</email></author></authors>
-    <date>2014-01-15</date>
-    <time>22:35:56</time>
-    <contents><target name="magelocal"><dir name="Pagofacil"><dir name="Pagofacildirect"><dir name="Block"><file name="Form.php" hash="d7048b534c8fd6824078c3d49df0d58c"/></dir><dir name="Helper"><file name="Data.php" hash="36d6bb0b16e6d0b60b15abd8e99c53ea"/></dir><dir name="Model"><file name="Api.php" hash="4c191a165fb80cffa4257e4d135d2037"/><file name="Observer.php" hash="e95aefed6ba407f571d7fbedee328990"/><file name="Source.php" hash="a53e9e90bd41e4f627de4d3222459fe0"/><file name="Standard.php" hash="0548c7d3cf0d3ad967b7e0cc43545e4f"/></dir><dir name="etc"><file name="config.xml" hash="de301d47b00688b44abaf8f07ffe2d7e"/><file name="system.xml" hash="29dfbe6b0756f0956ed40b65e20a8d67"/></dir></dir></dir></target><target name="magedesign"><dir name="frontend"><dir name="base"><dir name="default"><dir name="template"><dir name="pagofacildirect"><file name="pay.phtml" hash="359aa8a305ae01dc80cea42cbaac2a54"/></dir></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Pagofacil_Pagofacildirect.xml" hash="2c7e994b76e28272ed97929e9a1057d8"/></dir></target></contents>
+    <description>PagoF&#xE1;cil is an important Mexican Payments Gateway offering web and mobile solutions. Start accepting American Express, MasterCard and Visa either credit or debit cards with the best rates in the market. The extension integrates completely in your website without leaving the domain or changing the look and feel of the store. The service includes the option for Deferred payments into 3, 6, 9 or 12 months, and the latest and most advanced product in the market: cash payments; this is extension with the best value for your customers. If you don&#x2019;t have an account you can register for free: http://www.pagofacil.net/registros</description>
+    <notes>Add cash payments</notes>
+    <authors><author><name>isai velazquez</name><user>ivelazquex</user><email>isai.velazquez@gmail.com</email></author><author><name>oswaldo lopez</name><user>waldix</user><email>waldix86@gmail.com</email></author></authors>
+    <date>2015-10-23</date>
+    <time>22:55:21</time>
+    <contents><target name="magelocal"><dir name="Pagofacil"><dir name="Pagofacildirect"><dir name="Block"><file name="CashForm.php" hash="a57db195f436949e264e4dc3ee3f7b50"/><file name="Form.php" hash="6ae09ff5ba2f43725c4728e9859f0a00"/><dir name="Onepage"><file name="Success.php" hash="0914ef203ff0167788b805ccb03b737d"/></dir></dir><dir name="Helper"><file name="Data.php" hash="3bd654c332485269a6c151535b99aa6c"/></dir><dir name="Model"><file name="Api.php" hash="69ad889aa1710bf2fdb888782df27248"/><file name="CashCP.php" hash="17e94d5ec29cf484dfab4b47a3f59913"/><file name="Observer.php" hash="705c6a36dd433f69e0d0ad10e14ddf09"/><file name="Source.php" hash="a53e9e90bd41e4f627de4d3222459fe0"/><file name="Standard.php" hash="d8ef3bcfa57c24adce8c33daa85fbb3f"/></dir><dir name="controllers"><file name="WebhookController.php" hash="68940fb84c142c7f4cfc2682c3d95670"/></dir><dir name="etc"><file name="config.xml" hash="e0490e525e3e3b0ebf26c86eedaba23c"/><file name="system.xml" hash="3dca12425dc7761aefefdba769c933e2"/></dir></dir></dir></target><target name="magedesign"><dir name="frontend"><dir name="base"><dir name="default"><dir name="layout"><file name="pagofacildirect.xml" hash="f7821ec4977e06e6ebfd6c266729910c"/></dir><dir name="template"><dir name="pagofacildirect"><file name="cash.phtml" hash="4bdbb5936f9878f4ab3f7b1062de75ea"/><file name="pay.phtml" hash="6a83e55210105eb40eeab581edd57617"/><file name="success.phtml" hash="f982fb2549865927230bd10669854f5d"/></dir></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Pagofacil_Pagofacildirect.xml" hash="1de5dec2b8aac0f2984265084de69965"/></dir></target></contents>
     <compatible/>
-    <dependencies><required><php><min>5.2.0</min><max>5.4.16</max></php><extension><name>curl</name><min></min><max></max></extension></required></dependencies>
+    <dependencies><required><php><min>5.2.17</min><max>5.6.14</max></php></required></dependencies>
 </package>

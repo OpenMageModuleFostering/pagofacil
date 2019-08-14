@@ -73,52 +73,44 @@ class Pagofacil_Pagofacildirect_Model_Api
 
         // datos para la peticion del servicio
         $data = array(
-            'idServicio'         => urlencode('3')
-            ,'idSucursal'        => urlencode($info['idSucursal'])
-            ,'idUsuario'         => urlencode($info['idUsuario'])
-            ,'nombre'            => urlencode($info['nombre'])
-            ,'apellidos'         => urlencode($info['apellidos'])
-            ,'numeroTarjeta'     => urlencode($info['numeroTarjeta'])
-            ,'cvt'               => urlencode($info['cvt'])
-            ,'cp'                => urlencode($info['cp'])
-            ,'mesExpiracion'     => urlencode($info['mesExpiracion'])
-            ,'anyoExpiracion'    => urlencode($info['anyoExpiracion'])
-            ,'monto'             => urlencode($info['monto'])
-            ,'email'             => urlencode($info['email'])
-            ,'telefono'          => urlencode($info['telefono'])
-            ,'celular'           => urlencode($info['celular'])
-            ,'calleyNumero'      => urlencode($info['calleyNumero'])
-            ,'colonia'           => urlencode($info['colonia'])
-            ,'municipio'         => urlencode($info['municipio'])
-            ,'estado'            => urlencode($info['estado'])
-            ,'pais'              => urlencode($info['pais'])
-            ,'idPedido'          => urlencode($info['idPedido'])
-            ,'ip'                => urlencode($info['ipBuyer'])
-            ,'noMail'            => urlencode($info['noMail'])
-            ,'plan'              => urlencode($info['plan'])
-            ,'mensualidades'     => urlencode($info['mensualidades'])
-            
-            //,'param1'            => urlencode()
-            //,'param2'            => urlencode()
-            //,'param3'            => urlencode()
-            //,'param4'            => urlencode()
-            //,'param5'            => urlencode()
-            
-            //'httpUserAgent'     => urlencode($_SERVER['HTTP_USER_AGENT']) // TABLA CAMPO OPCIONALES
-            
+            'idServicio'        => '3',
+            'idSucursal'        => $info['idSucursal'],
+            'idUsuario'         => $info['idUsuario'],
+            'nombre'            => $info['nombre'],
+            'apellidos'         => $info['apellidos'],
+            'numeroTarjeta'     => $info['numeroTarjeta'],
+            'cvt'               => $info['cvt'],
+            'cp'                => $info['cp'],
+            'mesExpiracion'     => $info['mesExpiracion'],
+            'anyoExpiracion'    => $info['anyoExpiracion'],
+            'monto'             => $info['monto'],
+            'email'             => $info['email'],
+            'telefono'          => $info['telefono'],
+            'celular'           => $info['celular'],
+            'calleyNumero'      => $info['calleyNumero'],
+            'colonia'           => $info['colonia'],
+            'municipio'         => $info['municipio'],
+            'estado'            => $info['estado'],
+            'pais'              => $info['pais'],
+            'idPedido'          => $info['idPedido'],
+            'ip'                => $info['ipBuyer'],
+            'noMail'            => $info['noMail'],
+            'plan'              => $info['plan'],
+            'mensualidades'     => $info['mensualidades'],
         );
 
         // construccion de la peticion
-        $cadena='';
-        foreach ($data as $key=>$valor){
-            $cadena.="&data[$key]=$valor";
+        $query = '';
+        foreach ($data as $key=>$value){
+            $query .= sprintf("&data[%s]=%s", $key, urlencode($value));
         }        
-        $url = $info['url'].'/?method=transaccion'.$cadena;
+        $url = $info['url'].'/?method=transaccion'.$query;
 
         // consumo del servicio
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
         // Blindly accept the certificate
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         $this->_response = curl_exec($ch);
@@ -138,6 +130,60 @@ class Pagofacil_Pagofacildirect_Model_Api
     public function getResponse()
     {
         return $this->_response;
+    }
+
+    /**
+     * consume el servicio de pago en efectivo de PagoFacil
+     * @param string[] vector con la informacion de la peticion
+     * @return mixed respuesta del consumo del servicio
+     * @throws Exception
+     */
+     public function paymentCash($info)
+    {
+        $response = null;        
+        
+        if (!is_array($info))
+        {
+            throw new Exception('parameter is not an array');
+        }
+
+        $info['url'] = 'https://www.pagofacil.net/st/public/cash/charge';
+        // determinar si el entorno es para pruebas
+        if ($info['prod'] == '0')
+        {
+            $info['url'] = 'https://www.pagofacil.net/ws/public/cash/charge';
+            $info['branch_key'] = $this->_sucursalKeyDemo;
+            $info['user_key'] = $this->_usuarioKeyDemo;
+        }
+
+        // datos para la peticion del servicio
+        $data = array(
+            'branch_key'       => $info['branch_key'],
+            'user_key'         => $info['user_key'],
+            'order_id'         => $info['order_id'],
+            'product'          => $info['product'],
+            'amount'           => $info['amount'],
+            'store_code'       => $info['storeCode'],
+            'customer'         => $info['customer'],
+            'email'            => $info['email']
+        );
+
+        // consumo del servicio
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $info['url']);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS,$data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        // Blindly accept the certificate
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $this->_response = curl_exec($ch);
+        curl_close($ch);
+
+        // tratamiento de la respuesta del servicio
+        $response = json_decode($this->_response,true);               
+
+        return $response;
     }
 
 }

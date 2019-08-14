@@ -49,12 +49,29 @@
                     <frontName>pagofacildirect</frontName>
                 </args>
             </pagofacildirect>
+            <compropago>
+                <use>cashCP</use>
+                <args>
+                    <module>Pagofacil_Pagofacildirect</module>
+                    <frontName>pagofacildirect</frontName>
+                </args>
+            </compropago>
         </routers>        
+        <layout>
+            <updates>
+              <pagofacildirect>
+                    <file>pagofacildirect.xml</file>
+                </pagofacildirect>
+                <compropago>
+                    <file>pagofacildirect.xml</file>
+                </compropago>
+            </updates>
+        </layout>
     </frontend>
     
     <default>
-       <payment>
-         <pagofacildirect>
+       <payment>        
+        <pagofacildirect>
              <model>pagofacildirect/standard</model>
              <group>pagofacil</group>
              <payment_action>sale</payment_action>
@@ -67,7 +84,22 @@
              <divisa>0</divisa>
              <msi>0</msi>
              <logo>1</logo>
-         </pagofacildirect>
+        </pagofacildirect>  
+        <compropago>
+            <active>1</active>
+            <prod>1</prod>
+            <payment_action>sale</payment_action>            
+            <allowspecific>0</allowspecific>
+            <model>pagofacildirect/cashCP</model>
+            <title><![CDATA[PagoFácil]]> - Efectivo</title>
+            <order_status_new>pending</order_status_new>
+            <order_status_approved>processing</order_status_approved>
+            <order_status_refunded>refunded</order_status_refunded>
+            <order_status_in_process>pending</order_status_in_process>
+            <order_status_cancelled>cancelled</order_status_cancelled>
+            <installments></installments>
+            <auto_create_inovice>0</auto_create_inovice>
+        </compropago>        
        </payment>
      </default>
           
