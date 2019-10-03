@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/pagofacil",
+    "name": "OpenMageModuleFostering\/pagofacil",
     "type": "magento-module",
     "license": "GNU-General-Public-License",
     "homepage": "",
     "description": "Online Payment Processor",
     "authors": [
-    {
-        "name": "isai velazquez",
-        "email": "isai.velazquez@gmail.com"
-    }
-],
+        {
+            "name": "isai velazquez",
+            "email": "isai.velazquez@gmail.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
